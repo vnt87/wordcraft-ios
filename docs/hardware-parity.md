@@ -21,10 +21,19 @@ pens, microphones (Dictate) and speakers (Read Aloud), and displays.
 | Touch screens and touchpads: pinch zoom, inertial scroll | ✅ | ✅ pinch (#179) | ✅ | ✅ inertial scroll (#252) | ✅ | 85% | 0–1 |
 | Scanners/cameras (Insert from device / Continuity Camera on Mac) | ✅ | ❌ | ❌ | ❌ | ❌ | 0% | 2–4 |
 
+## iPadOS (fork)
+
+Only what has been demonstrated, on the iPad Air 11-inch (M3) Simulator with iPadOS 26.2 (2026-10-13): the
+Debug app builds for Apple Silicon, installs, launches, shows the Start screen in landscape and lays out inside
+the safe area (UIKit bottom inset 20 pt, top inset 32 pt while the status bar shows, then 0). Not verified: a
+physical iPad, the on-screen and hardware keyboards, document pickers, touch, Apple Pencil, multitasking,
+Release builds. Printing, folder access and the system clipboard are not wired up.
+
 ## Revision history
 
 | Date | Change | Summary |
 |---|---|---|
+| 2026-10-13 | minor | iPadOS fork section: simulator launch and safe-area layout only; nothing else claimed |
 | 2026-10-12 | trivial | 32-bit Windows starts on OpenGL: DirectX 12 graphics pipeline creation returns "The parameter is incorrect" and the app exited before the window appeared |
 | 2026-10-12 | minor | Desktop File > Print now discovers printers and submits PDF jobs through pinned craft-print with printer choice, copies, duplex and grayscale; browser printing and PDF export remain available. The upstream preview, page ranges, parity and Print Markup remain available. Remaining print parity includes driver-specific tray/options and pages-per-sheet UI; physical printer fidelity needs hardware validation. |
 | 2026-10-10 | trivial | Windows falls back to OpenGL when DirectX 12 offers only the software adapter (#316) |

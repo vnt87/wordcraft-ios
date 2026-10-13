@@ -29,11 +29,16 @@ the safe area (UIKit bottom inset 20 pt, top inset 32 pt while the status bar sh
 physical iPad, the on-screen and hardware keyboards, document pickers, touch, Apple Pencil, multitasking,
 Release builds. Printing, folder access and the system clipboard are not wired up.
 
+User-reported on a physical iPad Air 13-inch (M3), Debug build (2026-10-13; not instrumented): Open and Save
+through the Files picker work, and touch works. Not verified: typing with an external keyboard and its
+shortcuts (the intended way to use it), Apple Pencil, multitasking, Release builds. The on-screen keyboard is
+a low priority.
+
 ## Revision history
 
 | Date | Change | Summary |
 |---|---|---|
-| 2026-10-13 | minor | iPadOS fork section: simulator launch and safe-area layout only; nothing else claimed |
+| 2026-10-13 | minor | iPadOS fork section: simulator launch and safe-area layout, plus user-reported Files open/save and touch on a physical iPad |
 | 2026-10-12 | trivial | 32-bit Windows starts on OpenGL: DirectX 12 graphics pipeline creation returns "The parameter is incorrect" and the app exited before the window appeared |
 | 2026-10-12 | minor | Desktop File > Print now discovers printers and submits PDF jobs through pinned craft-print with printer choice, copies, duplex and grayscale; browser printing and PDF export remain available. The upstream preview, page ranges, parity and Print Markup remain available. Remaining print parity includes driver-specific tray/options and pages-per-sheet UI; physical printer fidelity needs hardware validation. |
 | 2026-10-10 | trivial | Windows falls back to OpenGL when DirectX 12 offers only the software adapter (#316) |

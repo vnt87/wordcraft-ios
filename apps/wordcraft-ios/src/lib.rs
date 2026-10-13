@@ -10,6 +10,11 @@ mod app;
 mod apple_entry;
 #[cfg(any(target_os = "ios", test))]
 mod documents;
+#[cfg(target_os = "ios")]
+#[allow(unsafe_code)]
+mod gc_keyboard;
+#[cfg(any(target_os = "ios", test))]
+mod hw_keys;
 #[cfg(any(target_os = "ios", test))]
 mod logging;
 #[cfg(any(target_os = "ios", test))]
@@ -70,6 +75,7 @@ pub fn run() -> Result<(), String> {
             native_options(),
             Box::new(|cc| {
                 scenes::attach(cc)?;
+                gc_keyboard::install(cc.egui_ctx.clone());
                 // Hide the status bar through the safe platform API so it cannot overlay egui's menu.
                 use winit::platform::ios::WindowExtIOS;
                 if let Some(window) = cc.winit_window() {

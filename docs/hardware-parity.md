@@ -29,8 +29,13 @@ the safe area (UIKit bottom inset 20 pt, top inset 32 pt while the status bar sh
 access and the system clipboard are not wired up.
 
 User-reported on a physical iPad Air 13-inch (M3), Debug build (2026-10-13; not instrumented): Open and Save
-through the Files picker work, and touch works. Not verified: typing with an external keyboard and its
-shortcuts (the intended way to use it), Apple Pencil, multitasking, Release builds. The on-screen keyboard is
+through the Files picker work, and touch works. The same device and a Logitech combo keyboard: typing works, but
+Enter, the arrow keys and Cmd+A did nothing, and most buttons did not respond. Cause of the keys: winit's UIKit
+view only receives text and Backspace from a keyboard. The runner now reads the hardware keyboard through
+GameController (`gc_keyboard.rs`, translated in `hw_keys.rs`, unit-tested) and injects Enter, arrows, Home/End,
+Page Up/Down, Delete, Esc, Tab, F-keys, Cmd/Ctrl shortcuts and the modifier state, with key repeat. Not yet
+verified on a device. Known gap: Option/Cmd+Backspace (delete word/line) is left to UIKit's plain
+Backspace. The unresponsive buttons are not explained yet. Not verified: Apple Pencil, multitasking, Release builds. The on-screen keyboard is
 a low priority.
 
 ## Revision history
@@ -41,6 +46,7 @@ a low priority.
 | 2026-10-17 | minor | File › Print's Scale to paper size (#2108): pick Letter, Legal, A4 or any Layout › Size paper and every page is scaled to it and centred, the paper turned to each page's orientation, in the preview, the print job (with the spooler's media) and Save these pages as PDF; the document keeps its page size. `paper` param on `ui.print`/`file.printPdf` |
 | 2026-10-14 | trivial | Pen / stylus row corrected: ink, eraser and Ink to Shape (with arrows) work; pressure and Ink to Math missing |
 | 2026-10-13 | trivial | A window too big for its screen shrinks to fit when it opens (#1215): eframe sized the first window to the whole monitor, frame and taskbar not counted, so on a laptop screen its bottom, with the end of the scroll bar, was past the screen edge. A window saved that size is fitted on its next launch too |
+| 2026-10-13 | minor | iPadOS fork section: user-reported keyboard failures (Enter, arrows, Cmd+A) and the GameController hardware-keyboard path |
 | 2026-10-13 | minor | iPadOS fork section: simulator launch and safe-area layout, plus user-reported Files open/save and touch on a physical iPad |
 | 2026-10-12 | trivial | 32-bit Windows starts on OpenGL: DirectX 12 graphics pipeline creation returns "The parameter is incorrect" and the app exited before the window appeared |
 | 2026-10-12 | minor | Desktop File > Print now discovers printers and submits PDF jobs through pinned craft-print with printer choice, copies, duplex and grayscale; browser printing and PDF export remain available. The upstream preview, page ranges, parity and Print Markup remain available. Remaining print parity includes driver-specific tray/options and pages-per-sheet UI; physical printer fidelity needs hardware validation. |

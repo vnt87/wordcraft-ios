@@ -31,10 +31,13 @@ Verified in the iPad Air 11-inch M3 simulator (iPadOS 26.2): the app builds, ins
 Start screen in landscape and keeps the UI inside the safe area. Host tests cover the runner's preferences,
 storage and change tracking.
 
-**Not yet verified, on a simulator or a device:** the on-screen keyboard and a hardware keyboard, typing,
-Open and Save through the Files picker, touch scrolling and pinch zoom, Apple Pencil, multitasking, Release
-builds. Printing, folder access and the system clipboard are not wired up. This is a first bootstrap, not a
-hardware sign-off.
+User-reported on a physical iPad Air 13-inch (M3), Debug build (2026-10-13), not instrumented: Open and Save
+work through the Files picker, and touch works.
+
+**Not yet verified:** typing with an external keyboard (the intended way to use WordCraft on an iPad) and its
+shortcuts, Apple Pencil, multitasking, Release builds. The on-screen keyboard is a low priority and is not
+specially supported. Printing, folder access and the system clipboard are not wired up. This is a first
+bootstrap, not a hardware sign-off.
 
 ## Build and run
 

@@ -5,6 +5,7 @@
 
 mod assets;
 mod ico;
+mod ios;
 mod layers;
 mod parity;
 mod stats;
@@ -24,6 +25,9 @@ commands:
   corpus [--download]
                   show where test corpora live; --download fetches PngSuite into corpus/pngsuite
   stats [--exact] count tests and lines per crate (--exact: ask the test harness via `-- --list`)
+  ios (--sim | --device) [--release] [--dry-run] [--sim-name N] [--device-id ID] [--team ID] [--bundle-id ID]
+                  build the iPad bundle (packaging/ios) and run it on the Simulator or a connected
+                  device (macOS + Xcode; --dry-run prints the plan anywhere; see `ios --help`)
   parity          recompute the Word feature-parity summary in docs/parity-checklist.md
   ico <out.ico> <in.png>...
                   pack square PNGs (<= 256 px) into a Windows .ico (see packaging/icons.sh)
@@ -39,6 +43,7 @@ fn main() -> ExitCode {
         Some("ci") => cmd_ci(),
         Some("corpus") => cmd_corpus(rest.contains(&"--download")),
         Some("stats") => stats::run(&root(), rest.contains(&"--exact")),
+        Some("ios") => ios::run(&root(), &rest),
         Some("parity") => parity::run(&root()),
         Some("ico") => ico::run(&rest),
         Some("version") => version::run(&root(), &rest),

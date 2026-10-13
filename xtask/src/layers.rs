@@ -54,6 +54,7 @@ pub const TABLE: &[(&str, Class)] = &[
     ("wordcraft", Class::Exempt),
     ("cli", Class::Exempt),
     ("web", Class::Exempt),
+    ("ios", Class::Exempt),
     ("xtask", Class::Exempt),
 ];
 
@@ -239,6 +240,12 @@ mod tests {
         Crate { name: name.into(), deps: deps.iter().map(|(n, k, w)| Dep { name: (*n).into(), kind: *k, workspace: *w }).collect() }
     }
     use DepKind::*;
+
+    #[test]
+    fn ios_runner_is_registered_as_an_app() {
+        assert_eq!(classify("wordcraft-ios"), Some(Class::Exempt));
+        assert!(check(&[c("wordcraft-ios", &[("wordcraft-ui-egui", Normal, true)])]).is_empty());
+    }
 
     #[test]
     fn clean_downward_graph_passes() {

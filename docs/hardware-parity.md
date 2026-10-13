@@ -23,11 +23,10 @@ pens, microphones (Dictate) and speakers (Read Aloud), and displays.
 
 ## iPadOS (fork)
 
-Only what has been demonstrated, on the iPad Air 11-inch (M3) Simulator with iPadOS 26.2 (2026-10-13): the
+Only what has been demonstrated. On the iPad Air 11-inch (M3) Simulator with iPadOS 26.2 (2026-10-13): the
 Debug app builds for Apple Silicon, installs, launches, shows the Start screen in landscape and lays out inside
-the safe area (UIKit bottom inset 20 pt, top inset 32 pt while the status bar shows, then 0). Not verified: a
-physical iPad, the on-screen and hardware keyboards, document pickers, touch, Apple Pencil, multitasking,
-Release builds. Printing, folder access and the system clipboard are not wired up.
+the safe area (UIKit bottom inset 20 pt, top inset 32 pt while the status bar shows, then 0). Printing, folder
+access and the system clipboard are not wired up.
 
 User-reported on a physical iPad Air 13-inch (M3), Debug build (2026-10-13; not instrumented): Open and Save
 through the Files picker work, and touch works. Not verified: typing with an external keyboard and its

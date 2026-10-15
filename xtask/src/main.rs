@@ -10,6 +10,7 @@ mod layers;
 mod parity;
 mod stats;
 mod version;
+mod visual_diff;
 
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
@@ -29,6 +30,9 @@ commands:
                   build the iPad bundle (packaging/ios) and run it on the Simulator or a connected
                   device (macOS + Xcode; --dry-run prints the plan anywhere; see `ios --help`)
   parity          recompute the Word feature-parity summary in docs/parity-checklist.md
+  visual-diff <ref.pdf> <test.pdf> <outdir> [--private] [--dpi N]
+                  compare two PDFs of a document page by page (SSIM, line breaks, offsets);
+                  needs poppler (pdftoppm, pdftotext)
   ico <out.ico> <in.png>...
                   pack square PNGs (<= 256 px) into a Windows .ico (see packaging/icons.sh)
 ";
@@ -46,6 +50,7 @@ fn main() -> ExitCode {
         Some("ios") => ios::run(&root(), &rest),
         Some("parity") => parity::run(&root()),
         Some("ico") => ico::run(&rest),
+        Some("visual-diff") => visual_diff::run(&rest),
         Some("version") => version::run(&root(), &rest),
         Some("-h" | "--help" | "help") | None => {
             print!("{USAGE}");

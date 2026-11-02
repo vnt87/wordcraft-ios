@@ -26,9 +26,9 @@ struct Reply {
     ui: egui::Context,
 }
 impl Reply {
-    /// The first path is the answer; none is a cancelled dialog.
+    /// The picked paths are the answer; an empty list is a cancelled dialog.
     fn send(&self, paths: Vec<String>) {
-        let _ = self.answer.send(Ok(paths.into_iter().next()));
+        let _ = self.answer.send(Ok(paths));
         self.ui.request_repaint();
     }
 }
@@ -359,6 +359,16 @@ pub fn push(root: &Path, path: &Path) -> Result<bool, String> {
     }
 }
 
+/// The extensions a picker offers for `purpose`: the union of its filters, with the "any file"
+/// wildcard dropped since UIKit wants concrete content types.
+fn picker_extensions(purpose: &str) -> Vec<&'static str> {
+    wordcraft_ui_egui::open_filters(purpose)
+        .iter()
+        .flat_map(|(_, extensions)| extensions.iter().copied())
+        .filter(|extension| *extension != "*")
+        .collect()
+}
+
 /// Install the document services. `ui` is woken when a picker answers.
 ///
 /// WordCraft writes a saved document straight to the path its Save dialog answered. That path is a
@@ -370,7 +380,9 @@ pub fn install(services: &mut Services, root: PathBuf, ui: egui::Context) -> Res
         let (answer, receiver) = mpsc::channel();
         let reply = Reply { answer, ui: ui.clone() };
         match request {
-            FileDialogRequest::Save { name } => {
+            FileDialogRequest::Save { name, dir: _ } => {
+                // The save's destination is a reserved managed path, so the folder a desktop
+                // dialog would start in (`dir`) has nothing to choose in.
                 let suggested = if name.is_empty() { "Untitled.docx" } else { name.as_str() };
                 match reserve_path(&root, suggested)
                     .and_then(|p| p.to_str().map(str::to_owned).ok_or_else(|| "Non-Unicode managed document path".to_string()))
@@ -383,12 +395,11 @@ pub fn install(services: &mut Services, root: PathBuf, ui: egui::Context) -> Res
                 }
             }
             FileDialogRequest::Open { purpose } => {
-                let extensions: Vec<&'static str> = wordcraft_ui_egui::open_filters(&purpose)
-                    .iter()
-                    .flat_map(|(_, extensions)| extensions.iter().copied())
-                    .filter(|extension| *extension != "*")
-                    .collect();
-                open_picker(reply, root.clone(), false, extensions);
+                open_picker(reply, root.clone(), false, picker_extensions(&purpose));
+            }
+            // Add Font… takes a whole selection at once; every imported path belongs in the answer.
+            FileDialogRequest::OpenMany { purpose } => {
+                open_picker(reply, root.clone(), true, picker_extensions(&purpose));
             }
         }
         receiver

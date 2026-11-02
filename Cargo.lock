@@ -6851,7 +6851,7 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-ios"
-version = "0.12.0"
+version = "0.14.0"
 dependencies = [
  "block2 0.6.2",
  "dispatch2",

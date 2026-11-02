@@ -67,7 +67,7 @@ impl eframe::App for IosApp {
         if let Some(wait) = self.keys.next_wake(now) {
             ctx.request_repaint_after(std::time::Duration::from_secs_f64(wait.max(0.001)));
         }
-        self.app.raw_input_hook(raw_input);
+        self.app.raw_input_hook(ctx, raw_input);
         crate::safe_area::apply(raw_input);
     }
 

@@ -1860,7 +1860,7 @@ dependencies = [
  "hashbrown 0.17.1",
  "linebender_resource_handle",
  "memmap2",
- "objc2 0.6.5",
+ "objc2 0.6.4",
  "objc2-core-foundation",
  "objc2-core-text",
  "objc2-foundation 0.3.2",
@@ -6957,7 +6957,7 @@ dependencies = [
 
 [[package]]
 name = "wordcraft-ios"
-version = "0.14.0"
+version = "0.15.0"
 dependencies = [
  "block2 0.6.2",
  "dispatch2",

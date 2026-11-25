@@ -190,7 +190,7 @@ pub(crate) fn show(ui: &mut Ui, cx: &mut BodyCx<'_>, app: &mut WordApp) {
     let page_band = (band - craft::ui::contract::pad_of(&craft::ui::runtime::env::Env::of(ui).tokens, Pad::Page)).max(0.0);
     let choice = MenuChoice::default();
     let current = app.ui.backstage_page.clone();
-    let show_discord = app.ui.show_discord;
+    let show_discord = false;
     // The row starts at the reading start, so the side menu is at the right in a mirrored interface.
     let _ = Row::new().fill().show(ui, |ui, _| {
         side_menu(ui, band, &current, has_document, show_discord, &choice);

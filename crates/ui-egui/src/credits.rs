@@ -105,7 +105,6 @@ fn about_info_for(identity: crate::os_window::LaunchIdentity, commit: Option<&st
         return AboutInfo::new(name, blurb, version)
             .links([
                 AboutLink::new("getartcraft.com/apps/wordcraft".to_string(), "https://getartcraft.com/apps/wordcraft"),
-                AboutLink::new("Join us on Discord: discord.gg/artcraft".to_string(), "https://discord.gg/artcraft"),
                 AboutLink::new("Source code: github.com/storytold/wordcraft".to_string(), "https://github.com/storytold/wordcraft"),
                 // Opens only after a click; nothing is collected or sent automatically.
                 AboutLink::new("Report a problem".to_string(), "https://github.com/storytold/wordcraft/issues"),
@@ -115,7 +114,6 @@ fn about_info_for(identity: crate::os_window::LaunchIdentity, commit: Option<&st
     AboutInfo::new(name, blurb, version)
         .links([
             AboutLink::new(tl!("getartcraft.com/apps/wordcraft").to_string(), "https://getartcraft.com/apps/wordcraft"),
-            AboutLink::new(tl!("Join us on Discord: discord.gg/artcraft").to_string(), "https://discord.gg/artcraft"),
             AboutLink::new(tl!("Source code: github.com/storytold/wordcraft").to_string(), "https://github.com/storytold/wordcraft"),
         ])
         .built_with(tl!("MIT OR Apache-2.0. Copyright (c) 2026 ArtCraft Team and the WordCraft contributors.").to_string())

@@ -258,7 +258,7 @@ const DISCORD_ICON: CustomVariant = CustomVariant::new::<IconButtonStyleKey>("wo
 /// search shows its magnifier alone as well.
 fn trailing(app: &mut WordApp, ui: &mut Ui, step: usize) -> Option<egui::Rect> {
     let mut rects = vec![super::search::show(app, ui, step >= 2)];
-    if app.ui.show_discord {
+    if false && app.ui.show_discord {
         let tip = TooltipSpec::new(tl!("Join the ArtCraft community on Discord").to_string());
         let clicked = if step >= 1 {
             let out = IconButton::new(IconId::new("discordPill"))
